@@ -1,8 +1,6 @@
 .DS_Store
-BlurScreenSdk/AppInsightsBlurScreen.cpp
+article-news/AppInsightsArticleNews.cpp
 DerivedData/
 Pods/
 xcuserdata
 Podfile.lock
-ConfigEnv.swift
-BlurScreenSdk.framework
