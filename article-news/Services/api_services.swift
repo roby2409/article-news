@@ -10,6 +10,13 @@ import Foundation
 
 class APIService :  NSObject {
     
+    static let sharedInstance: APIService = {
+        
+        let instance = APIService()
+        return instance
+    }()
+    
+    
     private let defaultService = NewsApi.BASE_URL + NewsApi.version
     
     func apiToGetNews(route: String, completionHandler : @escaping (_ response:Articles?, _ errorCode: Int)-> Void) {
