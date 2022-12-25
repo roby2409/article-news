@@ -6,17 +6,17 @@
 //
 
 import UIKit
-var categories: [Categories] = [
-    Categories(
+var dataCategories: [Category] = [
+    Category(
            nameOfCategory: "Business", photoOfCategory: UIImage(named: "business")!),
-    Categories(
+    Category(
            nameOfCategory: "Entertainment", photoOfCategory: UIImage(named: "entertainment")!),
-    Categories(
+    Category(
            nameOfCategory: "Health", photoOfCategory: UIImage(named: "health")!),
-    Categories(
+    Category(
            nameOfCategory: "Science", photoOfCategory: UIImage(named: "science")!),
-    Categories(
+    Category(
            nameOfCategory: "Sports", photoOfCategory: UIImage(named: "sports")!),
-    Categories(
+    Category(
            nameOfCategory: "Technology", photoOfCategory: UIImage(named: "technology")!),
 ]

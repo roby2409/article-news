@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Categories {
+struct Category {
     let nameOfCategory: String
     let photoOfCategory: UIImage
 }
