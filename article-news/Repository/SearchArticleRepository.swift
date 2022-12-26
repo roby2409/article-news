@@ -46,7 +46,6 @@ class SearchArticleRepository{
         }
         
         let result = urlComps.url!
-        print("result url \(result)")
         APIService.sharedInstance.apiToGetNews(result){ (articlesResult, errorCode) in
             if let newsResult = articlesResult{
                 completion(.success(newsResult))
