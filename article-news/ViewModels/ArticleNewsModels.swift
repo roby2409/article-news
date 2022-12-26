@@ -33,6 +33,7 @@ class ArticleNewsModels{
     var itemArticles          = BehaviorRelay<[ArticleElement]>(value: [])
     // 3. For setup ui label current choosed filter
     var currentFilteredLabel  = BehaviorRelay(value: "")
+    var hasAnError       = PublishRelay<String>()
     
     //    func setupUiArticlePage(currentLabel: String) {
     init(){
@@ -45,7 +46,7 @@ class ArticleNewsModels{
         self.searchSourceRepository.searchSources(sourceRequestParams: SourceParameters()){ [weak self] response in
             switch response {
             case .failure(let e):
-                print("error", e.localizedDescription)
+                self?.hasAnError.accept(e.localizedDescription)
                 self?.itemSources.accept([])
                 
             case .success(let data):
@@ -93,15 +94,24 @@ class ArticleNewsModels{
         
         
         let currentPage = self.currentPage.value
+        print("current page now :  \(currentPage)")
         self.searchArticleRepository.processingEndpointTopHeadLines(articleRequestParams: articleParameters, page: currentPage){ [weak self] response in
             switch response {
             case .failure(let e):
-                print("error", e.localizedDescription)
+                self?.hasAnError.accept(e.localizedDescription)
                 self?.itemArticles.accept([])
                 
             case .success(let data):
-                let filteredSourceItems = data.articles
-                self?.itemArticles.accept(filteredSourceItems)
+                let articles = data.articles
+                let existData = self?.itemArticles.value ?? []
+                
+                /// add new data to nil array
+                if existData.isEmpty {
+                    self?.itemArticles.accept(articles)
+                } else {
+                    /// update exist data with adding new data
+                    self?.itemArticles.accept(existData + articles)
+                }
             }
         }
     }
@@ -110,15 +120,11 @@ class ArticleNewsModels{
     func bindScrollEnded() {
         scrollEnded
             .subscribe { [weak self] _ in
-                if let currentPage = self?.currentPage.value {
-                    self?.currentPage.accept(currentPage + 1)
+                if let newPage = self?.currentPage.value {
+                    let currentPage = newPage
+                    self?.currentPage.accept(currentPage - 1)
                     
                     let currentParameters = self?.currentArticleParameters.value
-                    print("------state parameter saat scroll----")
-                    print("source : \(String(describing: currentParameters?.sources))")
-                    print("category : \(String(describing: currentParameters?.category))")
-                    print("country : \(String(describing: currentParameters?.country))")
-                    print("----------end-------------")
                     self?.fetchArticles(articleParameters: currentParameters ?? ArticleParameters())
                 }
             }

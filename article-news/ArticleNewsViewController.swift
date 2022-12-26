@@ -41,6 +41,7 @@ class ArticleNewsViewController: UIViewController {
         setupUI()
         bindTableData()
         bindCategoriesCountriesLanguagesForPopup()
+        bindIfError()
     }
     
     override func viewWillLayoutSubviews() {
@@ -82,6 +83,15 @@ class ArticleNewsViewController: UIViewController {
             .disposed(by: bag)
     }
     
+    func bindIfError(){
+        viewModel.hasAnError
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [unowned self] erroMessage in
+                self.showError(erroMessage, message: nil, handler: nil)
+            })
+            .disposed(by: bag)
+    }
+    
     func bindTableData(){
         // bind items to table
         viewModel.itemArticles
@@ -92,9 +102,31 @@ class ArticleNewsViewController: UIViewController {
             }.disposed(by: bag)
         
         // bind a model selected handler
-        articleCollectionView.rx.modelSelected(ArticleElement.self).bind { source in
-            print("source diclick \(String(describing: source.title))")
+        articleCollectionView.rx.modelSelected(ArticleElement.self).bind { article in
+            if let urlArticle = article.url{
+                print("url article \(urlArticle)")
+            }else{
+                self.showError("Artikel ini tidak memiliki link yachh", message: "Sorry", handler: nil)
+            }
         }.disposed(by: bag)
+        
+        // MARK: Trigger scroll view when ended
+        articleCollectionView.rx.willDisplayCell
+            .observe(on: MainScheduler.instance)
+            .map({ ($0.at, $0.at.section) })
+            .filter({
+                let currentSection = $1
+                let currentItem    = $0.row
+                let allCellSection = self.articleCollectionView.numberOfSections
+                let numberOfItem   = self.articleCollectionView.numberOfItems(inSection: currentSection)
+                let result = currentSection == allCellSection - 1
+                &&
+currentItem >= numberOfItem - 1
+                return result
+            })
+            .map({ _ in () })
+            .bind(to: viewModel.scrollEnded)
+            .disposed(by: bag)
         
         // fetch sources
         
