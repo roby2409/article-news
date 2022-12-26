@@ -16,6 +16,10 @@ class APIService :  NSObject {
         return instance
     }()
     
+    func getSourceNewsLogoUrl(source: String) -> String {
+        let sourceLogoUrl = "https://res.cloudinary.com/news-logos/image/upload/v1557987666/\(source).png"
+        return sourceLogoUrl
+    }
     
     public let defaultService = NewsApi.BASE_URL + NewsApi.version
     
@@ -25,7 +29,7 @@ class APIService :  NSObject {
             return
         }
         var request = URLRequest(url: url)
-        request.timeoutInterval = 12
+        request.timeoutInterval = 18
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type") // the request is JSON
         request.setValue("application/json", forHTTPHeaderField: "Accept") // the response expected to
@@ -39,11 +43,14 @@ class APIService :  NSObject {
                     completionHandler(nil, httpResponse.statusCode)
                     return
                 }
-                guard let mappedResponse = try? JSONDecoder().decode(Articles.self, from: receivedData) else {
+                do{
+                    let mappedResponse = try JSONDecoder().decode(Articles.self, from: receivedData)
+                    completionHandler(mappedResponse, httpResponse.statusCode)
+                }catch let error{
+                    print("error: \(error)")
                     completionHandler(nil, 1001)
-                    return
                 }
-                completionHandler(mappedResponse, httpResponse.statusCode)
+                
             }else{
                 let getStatusCode = (error as NSError?)?.code
                 completionHandler(nil, getStatusCode ?? 500)
