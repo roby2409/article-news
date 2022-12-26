@@ -335,7 +335,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kPD-Gy-1M4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="XZt-a1-xlo">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="92.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="98.5"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -355,38 +355,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8a0-WA-PWo">
-                                <rect key="frame" x="16" y="91.5" width="288" height="415.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SourceCell" rowHeight="60" id="c4y-tL-ePV">
-                                        <rect key="frame" x="0.0" y="50" width="288" height="60"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c4y-tL-ePV" id="mzR-m9-eg7">
-                                            <rect key="frame" x="0.0" y="0.0" width="288" height="60"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" text="sources" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OJD-Db-A4s">
-                                <rect key="frame" x="16" y="65" width="45" height="14.5"/>
+                                <rect key="frame" x="16" y="113.5" width="45" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="x1h-0t-Ndt">
+                                <rect key="frame" x="0.0" y="136" width="320" height="383"/>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3vQ-IM-fpU">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="newsFooterView" id="hg4-1B-7kQ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tempat artikel cell" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nuj-DJ-i14">
+                                            <rect key="frame" x="99" y="16" width="122" height="18"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="Nuj-DJ-i14" firstAttribute="centerY" secondItem="hg4-1B-7kQ" secondAttribute="centerY" id="TDZ-b3-ThF"/>
+                                        <constraint firstItem="Nuj-DJ-i14" firstAttribute="centerX" secondItem="hg4-1B-7kQ" secondAttribute="centerX" id="VGK-qN-TX3"/>
+                                    </constraints>
+                                </collectionReusableView>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="m0F-jY-4SP"/>
-                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8a0-WA-PWo" firstAttribute="leading" secondItem="m0F-jY-4SP" secondAttribute="leading" constant="16" id="NTH-Dv-3Q5"/>
+                            <constraint firstItem="x1h-0t-Ndt" firstAttribute="top" secondItem="OJD-Db-A4s" secondAttribute="bottom" constant="8" symbolic="YES" id="E4n-pQ-ypf"/>
                             <constraint firstItem="OJD-Db-A4s" firstAttribute="leading" secondItem="m0F-jY-4SP" secondAttribute="leading" constant="16" id="REC-uA-bi1"/>
-                            <constraint firstItem="m0F-jY-4SP" firstAttribute="trailing" secondItem="8a0-WA-PWo" secondAttribute="trailing" constant="16" id="a1C-yQ-aX8"/>
+                            <constraint firstItem="x1h-0t-Ndt" firstAttribute="height" secondItem="2g9-uN-skR" secondAttribute="height" multiplier="0.674296" id="S33-uW-JYF"/>
+                            <constraint firstItem="x1h-0t-Ndt" firstAttribute="trailing" secondItem="m0F-jY-4SP" secondAttribute="trailing" id="SU2-0h-KYo"/>
+                            <constraint firstItem="x1h-0t-Ndt" firstAttribute="leading" secondItem="m0F-jY-4SP" secondAttribute="leading" id="d2w-Eb-wct"/>
                             <constraint firstItem="OJD-Db-A4s" firstAttribute="top" secondItem="m0F-jY-4SP" secondAttribute="top" constant="21" id="d9U-Q2-ibq"/>
                             <constraint firstItem="m0F-jY-4SP" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="OJD-Db-A4s" secondAttribute="trailing" constant="5" id="szB-CE-crN"/>
-                            <constraint firstItem="8a0-WA-PWo" firstAttribute="top" secondItem="OJD-Db-A4s" secondAttribute="bottom" constant="12" id="x3U-u2-JTh"/>
-                            <constraint firstItem="m0F-jY-4SP" firstAttribute="bottom" secondItem="8a0-WA-PWo" secondAttribute="bottom" constant="12" id="ytH-4y-V5Y"/>
-                            <constraint firstItem="8a0-WA-PWo" firstAttribute="centerX" secondItem="2g9-uN-skR" secondAttribute="centerX" id="zdd-DO-ojh"/>
+                            <constraint firstItem="x1h-0t-Ndt" firstAttribute="bottom" secondItem="m0F-jY-4SP" secondAttribute="bottom" id="vGf-nq-N5z"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -395,7 +411,7 @@
                             <barButtonItem image="filter" id="DAf-6E-2g6">
                                 <color key="tintColor" systemColor="labelColor"/>
                             </barButtonItem>
-                            <barButtonItem image="language" id="vYV-yY-RQl">
+                            <barButtonItem image="sources" id="vYV-yY-RQl">
                                 <color key="tintColor" systemColor="labelColor"/>
                             </barButtonItem>
                             <barButtonItem image="country" id="VpD-em-oEk" userLabel="Country Button">
@@ -405,13 +421,13 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="articleTableView" destination="8a0-WA-PWo" id="KPG-bq-VHi"/>
-                        <outlet property="currentSources" destination="OJD-Db-A4s" id="vFW-Pn-zdb"/>
+                        <outlet property="articleCollectionView" destination="x1h-0t-Ndt" id="Ekc-H9-aUc"/>
+                        <outlet property="currentSelectedFilterChoosed" destination="OJD-Db-A4s" id="lLF-fN-NRn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wh4-Kr-S0s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1108" y="166"/>
+            <point key="canvasLocation" x="-1111.875" y="164.78873239436621"/>
         </scene>
     </scenes>
     <resources>
@@ -422,6 +438,7 @@
         <image name="health" width="273" height="235.5"/>
         <image name="language" width="24" height="24"/>
         <image name="profilku" width="240" height="426.5"/>
+        <image name="sources" width="24" height="24"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
