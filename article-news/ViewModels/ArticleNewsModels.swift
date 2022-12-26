@@ -33,6 +33,7 @@ class ArticleNewsModels{
     var itemArticles          = BehaviorRelay<[ArticleElement]>(value: [])
     // 3. For setup ui label current choosed filter
     var currentFilteredLabel  = BehaviorRelay(value: "")
+    var hasAnError       = PublishRelay<String>()
     
     //    func setupUiArticlePage(currentLabel: String) {
     init(){
@@ -45,7 +46,7 @@ class ArticleNewsModels{
         self.searchSourceRepository.searchSources(sourceRequestParams: SourceParameters()){ [weak self] response in
             switch response {
             case .failure(let e):
-                print("error", e.localizedDescription)
+                self?.hasAnError.accept(e.localizedDescription)
                 self?.itemSources.accept([])
                 
             case .success(let data):
@@ -97,7 +98,7 @@ class ArticleNewsModels{
         self.searchArticleRepository.processingEndpointTopHeadLines(articleRequestParams: articleParameters, page: currentPage){ [weak self] response in
             switch response {
             case .failure(let e):
-                print("error", e.localizedDescription)
+                self?.hasAnError.accept(e.localizedDescription)
                 self?.itemArticles.accept([])
                 
             case .success(let data):
