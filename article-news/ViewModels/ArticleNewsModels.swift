@@ -81,10 +81,10 @@ class ArticleNewsModels{
         }else{
             currentParameters.sources = nil
         }
-        self.fetchArticles(articleParameters: currentParameters)
+        self.fetchArticles(articleParameters: currentParameters, forUpdate: true)
     }
     /// Loading images from given api
-    func fetchArticles(articleParameters: ArticleParameters) {
+    func fetchArticles(articleParameters: ArticleParameters, forUpdate: Bool) {
         // always keep filtered value parameter after fetch or after update (processing)
         self.currentArticleParameters.accept(articleParameters)
         
@@ -93,6 +93,9 @@ class ArticleNewsModels{
         
         
         let currentPage = self.currentPage.value
+        
+
+
         self.searchArticleRepository.processingEndpointTopHeadLines(articleRequestParams: articleParameters, page: currentPage){ [weak self] response in
             switch response {
             case .failure(let e):
@@ -101,14 +104,18 @@ class ArticleNewsModels{
                 
             case .success(let data):
                 let articles = data.articles
-                let existData = self?.itemArticles.value ?? []
-                
-                /// add new data to nil array
-                if existData.isEmpty {
+                if(forUpdate == true){
                     self?.itemArticles.accept(articles)
-                } else {
-                    /// update exist data with adding new data
-                    self?.itemArticles.accept(existData + articles)
+                }else{
+                    let existData = self?.itemArticles.value ?? []
+                    
+                    /// add new data to nil array
+                    if existData.isEmpty {
+                        self?.itemArticles.accept(articles)
+                    } else {
+                        /// update exist data with adding new data
+                        self?.itemArticles.accept(existData + articles)
+                    }
                 }
             }
         }
@@ -123,7 +130,7 @@ class ArticleNewsModels{
                     self?.currentPage.accept(currentPage - 1)
                     
                     let currentParameters = self?.currentArticleParameters.value
-                    self?.fetchArticles(articleParameters: currentParameters ?? ArticleParameters())
+                    self?.fetchArticles(articleParameters: currentParameters ?? ArticleParameters(), forUpdate: false)
                 }
             }
             .disposed(by: disposeBag)
