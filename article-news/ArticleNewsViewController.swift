@@ -8,8 +8,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SafariServices
 
-class ArticleNewsViewController: UIViewController {
+class ArticleNewsViewController: UIViewController, SFSafariViewControllerDelegate {
     
     var sourceFromHomePage: Source? = nil
     private var categoriesState: [String] = []
@@ -105,6 +106,10 @@ class ArticleNewsViewController: UIViewController {
         articleCollectionView.rx.modelSelected(ArticleElement.self).bind { article in
             if let urlArticle = article.url{
                 print("url article \(urlArticle)")
+                let url = URL(string: urlArticle)!
+                let svc = WebviewArtikelController(url: url)
+                svc.delegate = self
+                self.present(svc, animated: true, completion: nil)
             }else{
                 self.showError("Artikel ini tidak memiliki link yachh", message: "Sorry", handler: nil)
             }
