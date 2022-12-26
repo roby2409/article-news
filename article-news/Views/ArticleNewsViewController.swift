@@ -136,7 +136,7 @@ currentItem >= numberOfItem - 1
         // fetch sources
         
         let resultSource = sourceFromHomePage?.name.replacingOccurrences(of: " ", with: "-")
-        viewModel.fetchArticles(articleParameters: ArticleParameters(sources: resultSource?.lowercased()))
+        viewModel.fetchArticles(articleParameters: ArticleParameters(sources: resultSource?.lowercased()), forUpdate: false)
     }
     
     func bindCategoriesCountriesLanguagesForPopup(){
