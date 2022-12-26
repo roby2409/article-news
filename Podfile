@@ -8,4 +8,8 @@ target 'article-news' do
 
   # Pods for article-news
   pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'SDWebImage'
+  pod "TinyConstraints"
+  pod 'RxDataSources'
 end
