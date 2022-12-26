@@ -64,7 +64,6 @@ class SourceNewsViewController: UIViewController {
         
         // bind a model selected handler
         sourceTableView.rx.modelSelected(Source.self).bind { source in
-            print("source on click :\(source.name)")
             let resultData: Source = source
             self.performSegue(withIdentifier: "moveToArticleNews", sender: resultData)
         }.disposed(by: bag)
