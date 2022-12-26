@@ -96,6 +96,24 @@ class ArticleNewsViewController: UIViewController {
             print("source diclick \(String(describing: source.title))")
         }.disposed(by: bag)
         
+        // MARK: Trigger scroll view when ended
+        articleCollectionView.rx.willDisplayCell
+            .observe(on: MainScheduler.instance)
+            .map({ ($0.at, $0.at.section) })
+            .filter({
+                let currentSection = $1
+                let currentItem    = $0.row
+                let allCellSection = self.articleCollectionView.numberOfSections
+                let numberOfItem   = self.articleCollectionView.numberOfItems(inSection: currentSection)
+                let result = currentSection == allCellSection - 1
+                &&
+currentItem >= numberOfItem - 1
+                return result
+            })
+            .map({ _ in () })
+            .bind(to: viewModel.scrollEnded)
+            .disposed(by: bag)
+        
         // fetch sources
         
         let resultSource = sourceFromHomePage?.name.replacingOccurrences(of: " ", with: "-")
