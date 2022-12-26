@@ -6,7 +6,7 @@
 //
 
 import UIKit
-var dataCategories: [Category] = [
+var dataCategoriesStatic: [Category] = [
     Category(
            nameOfCategory: "Business", photoOfCategory: UIImage(named: "business")!),
     Category(
