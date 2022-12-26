@@ -77,7 +77,6 @@ class APIService :  NSObject {
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
             if error == nil, let receivedData = data, let httpResponse = response as? HTTPURLResponse {
-                print("http status code : \(httpResponse.statusCode)")
                 guard  (200 ..< 299) ~= httpResponse.statusCode else {
                     completionHandler(nil, httpResponse.statusCode)
                     return

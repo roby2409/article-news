@@ -89,12 +89,10 @@ class ArticleNewsModels{
         self.currentArticleParameters.accept(articleParameters)
         
         // update label (ui)
-        print("article parameters : \(articleParameters)")
         self.currentFilteredLabel.accept(articleParameters.toLabel())
         
         
         let currentPage = self.currentPage.value
-        print("current page now :  \(currentPage)")
         self.searchArticleRepository.processingEndpointTopHeadLines(articleRequestParams: articleParameters, page: currentPage){ [weak self] response in
             switch response {
             case .failure(let e):
